@@ -1,8 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	points: 1,
 };
+
+const incrementByAmount = createAction("account/incrementByAmount");
 
 export const bonusSlice = createSlice({
 	name: "bonus", // this will define the name of our actions
@@ -15,6 +17,11 @@ export const bonusSlice = createSlice({
 			// immutable state based off those changes
 			state.points += 1; // immer library on work
 		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(incrementByAmount, (state, action) => {
+			if (action.payload >= 100) state.points++;
+		});
 	},
 });
 
