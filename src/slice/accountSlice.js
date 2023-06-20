@@ -35,9 +35,19 @@ export const accountSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(getUserAccount.fulfilled, (state, action) => {
-			state.amount = action.payload;
-		});
+		builder
+			.addCase(getUserAccount.fulfilled, (state, action) => {
+				state.amount = action.payload;
+				state.pending = false;
+			})
+			.addCase(getUserAccount.pending, (state, action) => {
+				state.amount = action.payload;
+				state.pending = true;
+			})
+			.addCase(getUserAccount.rejected, (state, action) => {
+				state.error = true;
+				state.pending = false;
+			});
 	},
 });
 

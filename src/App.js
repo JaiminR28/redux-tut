@@ -3,6 +3,7 @@ import "./App.css";
 import Account from "./components/Account";
 import Bonus from "./components/Bonus";
 import Reward from "./components/reward";
+import Admin from "./components/admin";
 function App() {
 	const amount = useSelector((state) => state.account.amount);
 	const points = useSelector((state) => state.bonus.points);
@@ -19,6 +20,7 @@ function App() {
 			)}
 			<h3>Total Bonus : {points}</h3>
 
+			<Admin />
 			<Account></Account>
 			<Bonus></Bonus>
 			<Reward />

@@ -9,10 +9,11 @@ import reportWebVitals from "./reportWebVitals";
 // import logger from "redux-logger";
 // import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import accountReducer from "./slice/accountSlice";
 import bonusReducer from "./slice/bonusSlice";
 import rewardReducer from "./reducers/rewardReducer";
+import { adminApi } from "./api/adminslice";
 // const store = createStore(
 //   combineReducers({
 //     account: accountReducer,
@@ -26,7 +27,12 @@ const Store = configureStore({
 		account: accountReducer,
 		bonus: bonusReducer,
 		reward: rewardReducer,
+		[adminApi.reducerPath]: adminApi.reducer,
 	},
+	// Adding the api middleware enables caching, invalidation, polling,
+	// and other useful features of `rtk-query`.
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(adminApi.middleware),
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
